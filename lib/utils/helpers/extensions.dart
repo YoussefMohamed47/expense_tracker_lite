@@ -1,3 +1,5 @@
+import 'package:expense_tracker_lite/utils/helpers/enums.dart';
+import 'package:expense_tracker_lite/utils/resources/base_page_route.dart';
 import 'package:flutter/material.dart';
 
 import 'constants.dart';
@@ -23,22 +25,46 @@ extension NonNullInteger on int? {
 }
 
 extension Navigation on BuildContext {
-  Future<dynamic> pushNamed(String routeName, {Object? arguments}) {
-    return Navigator.of(this).pushNamed(routeName, arguments: arguments);
+  /// Push with custom animated transition
+  Future<T?> pushWithTransition<T>(
+    Widget page, {
+    TransitionType transitionType = TransitionType.slideFromRight,
+    bool fullscreenDialog = false,
+    bool maintainState = true,
+    Object? arguments,
+  }) {
+    return Navigator.of(this).push<T>(
+      BasePageRoute(
+        builder: (_) => page,
+        settings: RouteSettings(arguments: arguments),
+        transitionType: transitionType,
+        fullscreenDialog: fullscreenDialog,
+      ),
+    );
   }
 
-  Future<dynamic> pushReplacementNamed(String routeName, {Object? arguments}) {
+  Future<T?> pushNamed<T>(String routeName, {Object? arguments}) {
+    return Navigator.of(this).pushNamed<T>(routeName, arguments: arguments);
+  }
+
+  Future<T?> pushReplacementNamed<T, TO>(
+    String routeName, {
+    Object? arguments,
+  }) {
     return Navigator.of(this)
-        .pushReplacementNamed(routeName, arguments: arguments);
+        .pushReplacementNamed<T, TO>(routeName, arguments: arguments);
   }
 
-  Future<dynamic> pushNamedAndRemoveUntil(String routeName,
-      {Object? arguments, required RoutePredicate predicate}) {
+  Future<T?> pushNamedAndRemoveUntil<T>(
+    String routeName, {
+    Object? arguments,
+    required RoutePredicate predicate,
+  }) {
     return Navigator.of(this)
-        .pushNamedAndRemoveUntil(routeName, predicate, arguments: arguments);
+        .pushNamedAndRemoveUntil<T>(routeName, predicate, arguments: arguments);
   }
 
-  void pop() => Navigator.of(this).pop();
+  void pop<T extends Object?>([T? result]) => Navigator.of(this).pop(result);
 }
 
 extension EmailValidator on String {

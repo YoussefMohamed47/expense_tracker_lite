@@ -11,6 +11,7 @@ class AppColors {
   static const Color primaryWithOpacity = Color(0xFF496ef3);
   static const Color aquaSapphire = Color(0xFF6286F7);
   static const Color lightBlue = Color(0xFFC4DCDC);
+  static const Color blue100 = Color(0xFFE3E7F6);
 
   // -----------------------
   // Status Colors
@@ -60,8 +61,9 @@ class AppColors {
   static const Color orange50 = Color(0xFFFFF7ED);
   static const Color red50 = Color(0xFFFFE7E7);
   static const Color red100 = Color(0xFFFFE2E2);
+  static const Color sage = Color(0xFFE0A770);
+  static const Color skyBlue = Color(0xFFe3cff6);
 
-  // -----------------------
   // Blue Variations
   // -----------------------
   static const Color blue50 = Color(0xFFEAF5FB);
@@ -88,6 +90,9 @@ class AppColors {
   // -----------------------
   static const Color white = Color(0xFFFFFFFF);
   static const Color offWhite = Color(0xFFF9F9F9);
+
   static const Color black = Color(0xFF000000);
   static const Color transparent = Colors.transparent;
+
+  static const Color offWhite2 = Color(0xFFfafafa);
 }

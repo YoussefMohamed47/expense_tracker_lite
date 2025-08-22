@@ -19,8 +19,16 @@ class IconAssets {
   static const String addCircleIcon = "$iconPath/add-circle.svg";
   static const String arrowLeftIcon = "$iconPath/arrow-left.svg";
   static const String arrowDownIcon = "$iconPath/arrow-down.svg";
-  static const passwordEyeIcon = "$iconPath/eye.svg";
-  static const passwordEyeSlashIcon = "$iconPath/eye-slash.svg";
-  static const profileIcon = "$iconPath/profile.svg";
-  static const circlesIcon = "$iconPath/circles.svg";
+  static const String passwordEyeIcon = "$iconPath/eye.svg";
+  static const String passwordEyeSlashIcon = "$iconPath/eye-slash.svg";
+  static const String profileIcon = "$iconPath/profile.svg";
+  static const String circlesIcon = "$iconPath/circles.svg";
+
+  static const String carIcon = "$iconPath/car.svg";
+  static const String cartIcon = "$iconPath/cart.svg";
+  static const String cartBagIcon = "$iconPath/cart_bag.svg";
+  static const String gasStationIcon = "$iconPath/gas.svg";
+  static const String newsPaperIcon = "$iconPath/newspaper.svg";
+  static const String popCornIcon = "$iconPath/popcorn.svg";
+  static const String rentIcon = "$iconPath/rent.svg";
 }

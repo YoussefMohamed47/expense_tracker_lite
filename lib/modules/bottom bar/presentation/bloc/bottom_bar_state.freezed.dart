@@ -16,43 +16,10 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$BottomBarState {
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(int index) initial,
-    required TResult Function(int selectedIndex) updated,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(int index)? initial,
-    TResult? Function(int selectedIndex)? updated,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int index)? initial,
-    TResult Function(int selectedIndex)? updated,
-    required TResult orElse(),
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_Updated value) updated,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(_Updated value)? updated,
-  }) =>
-      throw _privateConstructorUsedError;
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_Updated value)? updated,
-    required TResult orElse(),
-  }) =>
+  int get currentIndex => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $BottomBarStateCopyWith<BottomBarState> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -61,6 +28,8 @@ abstract class $BottomBarStateCopyWith<$Res> {
   factory $BottomBarStateCopyWith(
           BottomBarState value, $Res Function(BottomBarState) then) =
       _$BottomBarStateCopyWithImpl<$Res, BottomBarState>;
+  @useResult
+  $Res call({int currentIndex});
 }
 
 /// @nodoc
@@ -72,34 +41,49 @@ class _$BottomBarStateCopyWithImpl<$Res, $Val extends BottomBarState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? currentIndex = null,
+  }) {
+    return _then(_value.copyWith(
+      currentIndex: null == currentIndex
+          ? _value.currentIndex
+          : currentIndex // ignore: cast_nullable_to_non_nullable
+              as int,
+    ) as $Val);
+  }
 }
 
 /// @nodoc
-abstract class _$$InitialImplCopyWith<$Res> {
-  factory _$$InitialImplCopyWith(
-          _$InitialImpl value, $Res Function(_$InitialImpl) then) =
-      __$$InitialImplCopyWithImpl<$Res>;
+abstract class _$$BottomBarStateImplCopyWith<$Res>
+    implements $BottomBarStateCopyWith<$Res> {
+  factory _$$BottomBarStateImplCopyWith(_$BottomBarStateImpl value,
+          $Res Function(_$BottomBarStateImpl) then) =
+      __$$BottomBarStateImplCopyWithImpl<$Res>;
+  @override
   @useResult
-  $Res call({int index});
+  $Res call({int currentIndex});
 }
 
 /// @nodoc
-class __$$InitialImplCopyWithImpl<$Res>
-    extends _$BottomBarStateCopyWithImpl<$Res, _$InitialImpl>
-    implements _$$InitialImplCopyWith<$Res> {
-  __$$InitialImplCopyWithImpl(
-      _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
+class __$$BottomBarStateImplCopyWithImpl<$Res>
+    extends _$BottomBarStateCopyWithImpl<$Res, _$BottomBarStateImpl>
+    implements _$$BottomBarStateImplCopyWith<$Res> {
+  __$$BottomBarStateImplCopyWithImpl(
+      _$BottomBarStateImpl _value, $Res Function(_$BottomBarStateImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? index = null,
+    Object? currentIndex = null,
   }) {
-    return _then(_$InitialImpl(
-      null == index
-          ? _value.index
-          : index // ignore: cast_nullable_to_non_nullable
+    return _then(_$BottomBarStateImpl(
+      currentIndex: null == currentIndex
+          ? _value.currentIndex
+          : currentIndex // ignore: cast_nullable_to_non_nullable
               as int,
     ));
   }
@@ -107,237 +91,46 @@ class __$$InitialImplCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$InitialImpl implements _Initial {
-  const _$InitialImpl([this.index = 0]);
+class _$BottomBarStateImpl implements _BottomBarState {
+  const _$BottomBarStateImpl({this.currentIndex = 0});
 
   @override
   @JsonKey()
-  final int index;
+  final int currentIndex;
 
   @override
   String toString() {
-    return 'BottomBarState.initial(index: $index)';
+    return 'BottomBarState(currentIndex: $currentIndex)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$InitialImpl &&
-            (identical(other.index, index) || other.index == index));
+            other is _$BottomBarStateImpl &&
+            (identical(other.currentIndex, currentIndex) ||
+                other.currentIndex == currentIndex));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, index);
+  int get hashCode => Object.hash(runtimeType, currentIndex);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>
-      __$$InitialImplCopyWithImpl<_$InitialImpl>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(int index) initial,
-    required TResult Function(int selectedIndex) updated,
-  }) {
-    return initial(index);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(int index)? initial,
-    TResult? Function(int selectedIndex)? updated,
-  }) {
-    return initial?.call(index);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int index)? initial,
-    TResult Function(int selectedIndex)? updated,
-    required TResult orElse(),
-  }) {
-    if (initial != null) {
-      return initial(index);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_Updated value) updated,
-  }) {
-    return initial(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(_Updated value)? updated,
-  }) {
-    return initial?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_Updated value)? updated,
-    required TResult orElse(),
-  }) {
-    if (initial != null) {
-      return initial(this);
-    }
-    return orElse();
-  }
+  _$$BottomBarStateImplCopyWith<_$BottomBarStateImpl> get copyWith =>
+      __$$BottomBarStateImplCopyWithImpl<_$BottomBarStateImpl>(
+          this, _$identity);
 }
 
-abstract class _Initial implements BottomBarState {
-  const factory _Initial([final int index]) = _$InitialImpl;
+abstract class _BottomBarState implements BottomBarState {
+  const factory _BottomBarState({final int currentIndex}) =
+      _$BottomBarStateImpl;
 
-  int get index;
+  @override
+  int get currentIndex;
+  @override
   @JsonKey(ignore: true)
-  _$$InitialImplCopyWith<_$InitialImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class _$$UpdatedImplCopyWith<$Res> {
-  factory _$$UpdatedImplCopyWith(
-          _$UpdatedImpl value, $Res Function(_$UpdatedImpl) then) =
-      __$$UpdatedImplCopyWithImpl<$Res>;
-  @useResult
-  $Res call({int selectedIndex});
-}
-
-/// @nodoc
-class __$$UpdatedImplCopyWithImpl<$Res>
-    extends _$BottomBarStateCopyWithImpl<$Res, _$UpdatedImpl>
-    implements _$$UpdatedImplCopyWith<$Res> {
-  __$$UpdatedImplCopyWithImpl(
-      _$UpdatedImpl _value, $Res Function(_$UpdatedImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? selectedIndex = null,
-  }) {
-    return _then(_$UpdatedImpl(
-      null == selectedIndex
-          ? _value.selectedIndex
-          : selectedIndex // ignore: cast_nullable_to_non_nullable
-              as int,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$UpdatedImpl implements _Updated {
-  const _$UpdatedImpl(this.selectedIndex);
-
-  @override
-  final int selectedIndex;
-
-  @override
-  String toString() {
-    return 'BottomBarState.updated(selectedIndex: $selectedIndex)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$UpdatedImpl &&
-            (identical(other.selectedIndex, selectedIndex) ||
-                other.selectedIndex == selectedIndex));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, selectedIndex);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$UpdatedImplCopyWith<_$UpdatedImpl> get copyWith =>
-      __$$UpdatedImplCopyWithImpl<_$UpdatedImpl>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function(int index) initial,
-    required TResult Function(int selectedIndex) updated,
-  }) {
-    return updated(selectedIndex);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(int index)? initial,
-    TResult? Function(int selectedIndex)? updated,
-  }) {
-    return updated?.call(selectedIndex);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function(int index)? initial,
-    TResult Function(int selectedIndex)? updated,
-    required TResult orElse(),
-  }) {
-    if (updated != null) {
-      return updated(selectedIndex);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_Updated value) updated,
-  }) {
-    return updated(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(_Updated value)? updated,
-  }) {
-    return updated?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_Updated value)? updated,
-    required TResult orElse(),
-  }) {
-    if (updated != null) {
-      return updated(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _Updated implements BottomBarState {
-  const factory _Updated(final int selectedIndex) = _$UpdatedImpl;
-
-  int get selectedIndex;
-  @JsonKey(ignore: true)
-  _$$UpdatedImplCopyWith<_$UpdatedImpl> get copyWith =>
+  _$$BottomBarStateImplCopyWith<_$BottomBarStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

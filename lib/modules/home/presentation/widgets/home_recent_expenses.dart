@@ -1,3 +1,6 @@
+import 'package:expense_tracker_lite/modules/home/presentation/widgets/expense_item.dart';
+import 'package:expense_tracker_lite/utils/helpers/constants.dart';
+import 'package:expense_tracker_lite/utils/helpers/spacing.dart';
 import 'package:expense_tracker_lite/utils/resources/app_colors.dart';
 import 'package:expense_tracker_lite/utils/resources/styles_manager.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +33,14 @@ class HomeRecentExpensesSection extends StatelessWidget {
             ),
           ],
         ),
+        ListView.separated(
+          shrinkWrap: true,
+          separatorBuilder: (context, index) => verticalSpace(8),
+          itemCount: Constants.homeRecentExpense.length,
+          itemBuilder: (context, index) => RecentExpenseItem(
+            expense: Constants.homeRecentExpense[index],
+          ),
+        )
       ],
     );
   }
