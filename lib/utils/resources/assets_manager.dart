@@ -3,7 +3,9 @@ const String booksPath = "assets/books";
 const String iconPath = "assets/icons";
 const String jsonPath = "assets/json";
 
-class ImageAssets {}
+class ImageAssets {
+  static const String userImage = "$imagePath/user_image.png";
+}
 
 class PdfAssets {}
 
@@ -20,4 +22,5 @@ class IconAssets {
   static const passwordEyeIcon = "$iconPath/eye.svg";
   static const passwordEyeSlashIcon = "$iconPath/eye-slash.svg";
   static const profileIcon = "$iconPath/profile.svg";
+  static const circlesIcon = "$iconPath/circles.svg";
 }

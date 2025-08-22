@@ -1,5 +1,3 @@
-
-
 class Constants {
   //static const String baseUrl = "https://api.platform.ALASSEMA.com/api/v1";
   static const String baseUrl = "http://69.10.56.98:81/backend/api/";
@@ -30,4 +28,9 @@ class Constants {
   static const int mnsaId = 1;
   static const int libraryId = 2;
   static String? selectedTimeForTasl;
+
+  static const List<String> filterList = [
+    "This Month",
+    "Last 7 Days",
+  ];
 }

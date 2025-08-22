@@ -2,6 +2,7 @@ import 'package:expense_tracker_lite/modules/bottom%20bar/helper/extention.dart'
 import 'package:expense_tracker_lite/modules/bottom%20bar/presentation/bloc/bottom_bar_bloc.dart';
 import 'package:expense_tracker_lite/modules/bottom%20bar/presentation/bloc/bottom_bar_event.dart';
 import 'package:expense_tracker_lite/modules/bottom%20bar/presentation/bloc/bottom_bar_state.dart';
+import 'package:expense_tracker_lite/modules/bottom%20bar/presentation/widgets/custom_bottom_nav_bar_item.dart';
 import 'package:expense_tracker_lite/modules/profile/presentation/screens/profile_screen.dart';
 import 'package:expense_tracker_lite/modules/statistics/presentation/screens/statistics_screen.dart';
 import 'package:expense_tracker_lite/modules/wallet/presentation/screens/wallet_screen.dart';
@@ -106,35 +107,17 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
                     showSelectedLabels: false,
                     showUnselectedLabels: false,
                     items: [
-                      BottomNavigationBarItem(
-                        icon: SvgPicture.asset(
-                          state.currentIndex == 0
-                              ? IconAssets.homeSelectedIcon
-                              : IconAssets.homeUnSelectedIcon,
-                          width: 32.w,
-                          height: 32.h,
-                          colorFilter: ColorFilter.mode(
-                            state.currentIndex == 0
-                                ? AppColors.primary
-                                : AppColors.gray200,
-                            BlendMode.srcIn,
-                          ),
-                        ),
-                        label: "Home",
+                      bottomNavItem(
+                        icon: IconAssets.homeUnSelectedIcon,
+                        selectedIcon: IconAssets.homeSelectedIcon,
+                        index: 0,
+                        state: state,
                       ),
-                      BottomNavigationBarItem(
-                        icon: SvgPicture.asset(
-                          IconAssets.statsIcon,
-                          colorFilter: ColorFilter.mode(
-                            state.currentIndex == 1
-                                ? AppColors.primary
-                                : AppColors.gray200,
-                            BlendMode.srcIn,
-                          ),
-                          width: 32.w,
-                          height: 32.h,
-                        ),
-                        label: "Stats",
+                      bottomNavItem(
+                        icon: IconAssets.statsIcon,
+                        selectedIcon: IconAssets.statsIcon,
+                        index: 1,
+                        state: state,
                       ),
                       BottomNavigationBarItem(
                         icon: SvgPicture.asset(
@@ -143,38 +126,22 @@ class _BottomBarScreenState extends State<BottomBarScreen> {
                             AppColors.primary,
                             BlendMode.srcIn,
                           ),
-                          width: 54.w,
-                          height: 54.h,
+                          width: 48.w,
+                          height: 48.h,
                         ),
                         label: "Add",
                       ),
-                      BottomNavigationBarItem(
-                        icon: SvgPicture.asset(
-                          IconAssets.walletIcon,
-                          colorFilter: state.currentIndex == 3
-                              ? ColorFilter.mode(
-                                  AppColors.primary,
-                                  BlendMode.srcIn,
-                                )
-                              : null,
-                          width: 32.w,
-                          height: 32.h,
-                        ),
-                        label: "Wallet",
+                      bottomNavItem(
+                        icon: IconAssets.walletIcon,
+                        selectedIcon: IconAssets.walletIcon,
+                        index: 3,
+                        state: state,
                       ),
-                      BottomNavigationBarItem(
-                        icon: SvgPicture.asset(
-                          IconAssets.profileIcon,
-                          width: 32.w,
-                          height: 32.h,
-                          colorFilter: state.currentIndex == 4
-                              ? ColorFilter.mode(
-                                  AppColors.primary,
-                                  BlendMode.srcIn,
-                                )
-                              : null,
-                        ),
-                        label: "Profile",
+                      bottomNavItem(
+                        icon: IconAssets.profileIcon,
+                        selectedIcon: IconAssets.profileIcon,
+                        index: 4,
+                        state: state,
                       ),
                     ],
                   )),

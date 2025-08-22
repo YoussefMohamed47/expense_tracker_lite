@@ -8,6 +8,9 @@ class AppColors {
   static const Color primaryDark = Color(0xFF1F6A92);
   static const Color primaryLight = Color(0xFF1B5B7E);
   static const Color blue25 = Color(0xFFE7F2F8);
+  static const Color primaryWithOpacity = Color(0xFF496ef3);
+  static const Color aquaSapphire = Color(0xFF6286F7);
+  static const Color lightBlue = Color(0xFFC4DCDC);
 
   // -----------------------
   // Status Colors
