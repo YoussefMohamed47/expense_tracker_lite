@@ -9,7 +9,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       emit(state.copyWith(
         isTotalBalanceCardExpanded: !state.isTotalBalanceCardExpanded,
       ));
-      // TODO: implement event handler
     });
   }
 }
