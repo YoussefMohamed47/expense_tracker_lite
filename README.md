@@ -3,7 +3,9 @@
 A modern, cross-platform expense tracking application built with Flutter. Track your expenses, manage budgets, and gain insights into your spending habits with an intuitive and beautiful user interface.
 
 ## 📱 Screenshots
-*(Screenshots will be added here after the first release)*
+
+![Screenshot_20250823_223428_com inovola expense_tracker_lite](https://github.com/user-attachments/assets/bb7367d2-2e72-4903-bd5f-28e5616c91ae)
+![Screenshot_20250823_223424_com inovola expense_tracker_lite](https://github.com/user-attachments/assets/b5371ed6-e28f-4dc4-944c-0e030f8ddd41)
 
 ## 🏗️ Architecture and Structure
 
