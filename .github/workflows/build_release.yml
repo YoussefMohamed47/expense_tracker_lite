@@ -35,15 +35,20 @@ jobs:
           flutter pub get
           flutter build apk --release --dart-define=APP_VERSION=$(git describe --tags --abbrev=0 || echo 'v0.0.0')
 
+      - name: Get version from pubspec
+        id: pubspec
+        run: |
+          VERSION=$(grep 'version:' pubspec.yaml | cut -d' ' -f2 | tr -d '+')
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "TAG=v$VERSION.${{ github.run_number }}" >> $GITHUB_ENV
+
       - name: Create Release
         uses: softprops/action-gh-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: v$(grep 'version:' pubspec.yaml | cut -d' ' -f2 | tr -d '+').${{ github.run_number }}
-          name: 'Release v$(grep 'version:' pubspec.yaml | cut -d' ' -f2 | tr -d '+').${{ github.run_number }}'
+          tag_name: ${{ env.TAG }}
+          name: Release ${{ env.TAG }}
           body: 'Automated release from GitHub Actions'
           files: |
             build/app/outputs/flutter-apk/app-release.apk
-          draft: false
-          prerelease: false
