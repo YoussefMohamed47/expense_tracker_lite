@@ -2,116 +2,21 @@ import 'dart:io';
 import 'dart:math';
 
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:expense_tracker_lite/core/data/models/expense_model.dart';
+import 'package:expense_tracker_lite/core/error/toast_helper.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:pdf/widgets.dart' as pw;
 import 'package:permission_handler/permission_handler.dart';
-
-import 'hex_color.dart';
 
 bool isEmailValid(String email) {
   return RegExp(
           r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
       .hasMatch(email);
-}
-
-String extractDateFromDateTime(String dateTime) {
-  // Format the date as "dd/MM/yyyy"
-  if (dateTime.isEmpty || dateTime == null) return "";
-  try {
-    final date = DateTime.parse(dateTime);
-    return "${date.day.toString().padLeft(2, '0')}/${date.month.toString().padLeft(2, '0')}/${date.year}";
-  } catch (e) {
-    // If parsing fails, return an empty string or handle the error as needed
-    return "";
-  }
-}
-
-bool isOverDueDate(String dateTime) {
-  // Check if the date is in the past
-  if (dateTime.isEmpty || dateTime == null) return false;
-  try {
-    final date = DateTime.parse(dateTime);
-    final now = DateTime.now();
-    return date.isBefore(now);
-  } catch (e) {
-    // If parsing fails, return false or handle the error as needed
-    return false;
-  }
-}
-
-Future<Position> determinePosition() async {
-  bool serviceEnabled;
-  LocationPermission permission;
-
-  // Test if location services are enabled.
-  serviceEnabled = await Geolocator.isLocationServiceEnabled();
-  if (!serviceEnabled) {
-    // Location services are not enabled don't continue
-    // accessing the position and request users of the
-    // App to enable the location services.
-    Fluttertoast.showToast(
-        msg: 'Location services are disabled. Please enable them.');
-  }
-
-  permission = await Geolocator.checkPermission();
-  if (permission == LocationPermission.denied) {
-    permission = await Geolocator.requestPermission();
-    if (permission == LocationPermission.denied) {
-      // Permissions are denied, next time you could try
-      // requesting permissions again (this is also where
-      // Android's shouldShowRequestPermissionRationale
-      // returned true. According to Android guidelines
-      // your App should show an explanatory UI now.
-      Fluttertoast.showToast(
-          msg: 'Location permissions are denied. Please enable them.');
-    }
-  }
-
-  if (permission == LocationPermission.deniedForever) {
-    // Permissions are denied forever, handle appropriately.
-    return Future.error(
-        'Location permissions are permanently denied, we cannot request permissions.');
-  }
-
-  // When we reach here, permissions are granted and we can
-  // continue accessing the position of the device.
-  return await Geolocator.getCurrentPosition();
-}
-
-String calculateTimeDifference(DateTime start, DateTime end) {
-  final duration = end.difference(start);
-
-  // Get absolute values to handle negative differences
-  final hours = duration.inHours.abs().toString().padLeft(2, '0');
-  final minutes = (duration.inMinutes.abs() % 60).toString().padLeft(2, '0');
-  final seconds = (duration.inSeconds.abs() % 60).toString().padLeft(2, '0');
-
-  return "$hours:$minutes:$seconds";
-}
-
-String getFormattedTimeInArabic(String time) {
-  const arabicDigits = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
-
-  // Convert time to Arabic digits
-  return time.split('').map((char) {
-    if (RegExp(r'\d').hasMatch(char)) {
-      return arabicDigits[int.parse(char)];
-    }
-    return char; // Keep non-numeric characters (e.g., ':') unchanged
-  }).join();
-}
-
-Color safeHexColor(String? hexCode, {String fallback = "FFFFFF"}) {
-  try {
-    if (hexCode == null || hexCode.isEmpty) return HexColor(fallback);
-    return HexColor(hexCode);
-  } catch (e) {
-    return HexColor(fallback);
-  }
 }
 
 final ImagePicker _picker = ImagePicker();
@@ -238,4 +143,90 @@ bool isExpenseValid(String amount) {
   if (value == null || value <= 0) return false;
 
   return true;
+}
+
+Future<String> exportExpensesToPDF(List<ExpenseModel> expenses) async {
+  try {
+    final status = await Permission.storage.request();
+    if (!status.isGranted) {
+      throw Exception('Storage permission not granted');
+    }
+
+    final pdf = pw.Document();
+    pdf.addPage(
+      pw.Page(
+        build: (context) {
+          return pw.Table.fromTextArray(
+            headers: [
+              "Category",
+              "Date",
+              "Amount",
+              "Currency",
+              "Converted Amount"
+            ],
+            data: expenses
+                .map((e) => [
+                      e.category,
+                      DateFormat('MMM dd, yyyy').format(e.date),
+                      e.amount?.toStringAsFixed(2) ?? '0.00',
+                      e.currency,
+                      e.convertedAmount?.toStringAsFixed(2) ?? '0.00',
+                    ])
+                .toList(),
+          );
+        },
+      ),
+    );
+
+    if (Platform.isAndroid) {
+      try {
+        final downloadsDir = await getExternalStorageDirectory();
+        if (downloadsDir == null) {
+          throw Exception('Could not access downloads directory');
+        }
+
+        final timestamp = DateFormat('yyyyMMdd_HHmmss').format(DateTime.now());
+        final fileName = 'expense_report_$timestamp.pdf';
+        final filePath = '${downloadsDir.path}/$fileName';
+
+        final file = File(filePath);
+        await file.writeAsBytes(await pdf.save());
+
+        await MethodChannel('flutter_channel')
+            .invokeMethod('scanFile', {'path': filePath});
+
+        ToastHelper.showToast(
+          message: 'PDF saved to Downloads folder',
+          type: ToastType.success,
+        );
+
+        return filePath;
+      } catch (e) {
+        print('Error saving to public storage: $e');
+      }
+    }
+
+    final appDocDir = await getApplicationDocumentsDirectory();
+    final dir = Directory('${appDocDir.path}/ExpenseReports');
+    if (!await dir.exists()) {
+      await dir.create(recursive: true);
+    }
+
+    final timestamp = DateFormat('yyyyMMdd_HHmmss').format(DateTime.now());
+    final fileName = 'expense_report_$timestamp.pdf';
+    final filePath = '${dir.path}/$fileName';
+
+    final file = File(filePath);
+    await file.writeAsBytes(await pdf.save());
+
+    ToastHelper.showToast(
+      message: 'PDF saved to app storage',
+      type: ToastType.success,
+    );
+
+    return filePath;
+  } catch (e) {
+    print('Error exporting PDF: $e');
+    rethrow;
+  }
 }

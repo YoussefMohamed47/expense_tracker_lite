@@ -110,7 +110,7 @@ class ExpenseBloc extends Bloc<ExpenseEvent, ExpenseState> {
     Emitter<ExpenseState> emit,
   ) async {
     emit(state.copyWith(isLoadingSubmitExpense: true, errorMessage: null));
-    log("DDDDDDDDDDDDDDDD ${Constants.categories.firstWhere((element) => element.id == state.addExpenseModel?.categoryId).name}");
+    await Future.delayed(const Duration(seconds: 2));
     final result = await _repo.submitExpense(
       expense: ExpenseModel(
         id: generateUniqueId(),

@@ -230,45 +230,47 @@ class _AddExpenseFormState extends State<AddExpenseForm> {
                 },
               ),
               verticalSpace(16),
-              CustomButton(
-                width: 1.sw,
-                buttonColor: AppColors.primary,
-                title: "Save",
-                onpress: () {
-                  if (!formKey.currentState!.validate()) return;
+              state.isLoadingSubmitExpense
+                  ? const Center(child: CircularProgressIndicator())
+                  : CustomButton(
+                      width: 1.sw,
+                      buttonColor: AppColors.primary,
+                      title: "Save",
+                      onpress: () {
+                        if (!formKey.currentState!.validate()) return;
 
-                  if (state.addExpenseModel?.date == null) {
-                    ToastHelper.showToast(
-                      message: "Please Select Date",
-                      type: ToastType.error,
-                    );
-                    return;
-                  }
+                        if (state.addExpenseModel?.date == null) {
+                          ToastHelper.showToast(
+                            message: "Please Select Date",
+                            type: ToastType.error,
+                          );
+                          return;
+                        }
 
-                  if (state.addExpenseModel?.categoryId == null) {
-                    ToastHelper.showToast(
-                      message: "Please Select Category",
-                      type: ToastType.error,
-                    );
-                    return;
-                  }
+                        if (state.addExpenseModel?.categoryId == null) {
+                          ToastHelper.showToast(
+                            message: "Please Select Category",
+                            type: ToastType.error,
+                          );
+                          return;
+                        }
 
-                  if (state.addExpenseModel?.currency == null ||
-                      state.addExpenseModel!.currency!.isEmpty) {
-                    ToastHelper.showToast(
-                      message: "Please Select Currency",
-                      type: ToastType.error,
-                    );
-                    return;
-                  }
+                        if (state.addExpenseModel?.currency == null ||
+                            state.addExpenseModel!.currency!.isEmpty) {
+                          ToastHelper.showToast(
+                            message: "Please Select Currency",
+                            type: ToastType.error,
+                          );
+                          return;
+                        }
 
-                  context.read<ExpenseBloc>().add(
-                        ExpenseEvent.submitExpense(state.addExpenseModel),
-                      );
-                },
-                height: 56.h,
-                borderRadius: 10,
-              ),
+                        context.read<ExpenseBloc>().add(
+                              ExpenseEvent.submitExpense(state.addExpenseModel),
+                            );
+                      },
+                      height: 56.h,
+                      borderRadius: 10,
+                    ),
               verticalSpace(16),
             ],
           ),
