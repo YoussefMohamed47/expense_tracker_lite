@@ -73,7 +73,7 @@ class RecentExpenseItem extends StatelessWidget {
                 ),
               ),
               Text(
-                " ${expense.currency} ${formatNumber(expense.convertedAmount ?? "0")}",
+                " ${expense.currency} ${formatNumber((expense.convertedAmount ?? "0").toString())}",
                 overflow: TextOverflow.ellipsis,
                 style: TextStyles.manropeFontBold.copyWith(
                   fontSize: 16.sp,

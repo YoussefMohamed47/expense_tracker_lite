@@ -56,7 +56,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       (expenses) {
         final double totalExpense = expenses.fold(
           0,
-          (prev, element) => prev + double.parse(element.amount),
+          (prev, element) => prev + element.amount,
         );
 
         if (state.filterType == "This Month") {

@@ -1,32 +1,29 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
-import 'package:expense_tracker_lite/expense_tracker_lite_app.dart';
-import 'package:expense_tracker_lite/utils/routing/app_router.dart';
-import 'package:flutter/material.dart';
+import 'package:expense_tracker_lite/utils/helpers/functions.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(ExpenseTrackerLiteApp(
-      appRouter: AppRouter(),
-    ));
+  group('Expense Validation', () {
+    test('Valid positive number returns true', () {
+      expect(isExpenseValid("100"), true);
+    });
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    test('Zero or negative returns false', () {
+      expect(isExpenseValid("0"), false);
+      expect(isExpenseValid("-5"), false);
+    });
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    test('Invalid string returns false', () {
+      expect(isExpenseValid("abc"), false);
+    });
+  });
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+  group('Currency Conversion', () {
+    test('Converts correctly with rate', () {
+      expect(calculateConvertedAmount("100", 48), 4800);
+    });
+
+    test('Invalid string returns 0', () {
+      expect(calculateConvertedAmount("abc", 1.5), 0);
+    });
   });
 }

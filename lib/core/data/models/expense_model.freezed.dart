@@ -23,9 +23,9 @@ mixin _$ExpenseModel {
   int get id => throw _privateConstructorUsedError;
   String get category => throw _privateConstructorUsedError;
   String get source => throw _privateConstructorUsedError;
-  String get amount => throw _privateConstructorUsedError;
+  double get amount => throw _privateConstructorUsedError;
   String? get receipt => throw _privateConstructorUsedError;
-  String? get convertedAmount => throw _privateConstructorUsedError;
+  double? get convertedAmount => throw _privateConstructorUsedError;
   String? get currency => throw _privateConstructorUsedError;
   DateTime get date => throw _privateConstructorUsedError;
   String get icon => throw _privateConstructorUsedError;
@@ -50,9 +50,9 @@ abstract class $ExpenseModelCopyWith<$Res> {
       {int id,
       String category,
       String source,
-      String amount,
+      double amount,
       String? receipt,
-      String? convertedAmount,
+      double? convertedAmount,
       String? currency,
       DateTime date,
       String icon,
@@ -101,7 +101,7 @@ class _$ExpenseModelCopyWithImpl<$Res, $Val extends ExpenseModel>
       amount: null == amount
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
-              as String,
+              as double,
       receipt: freezed == receipt
           ? _value.receipt
           : receipt // ignore: cast_nullable_to_non_nullable
@@ -109,7 +109,7 @@ class _$ExpenseModelCopyWithImpl<$Res, $Val extends ExpenseModel>
       convertedAmount: freezed == convertedAmount
           ? _value.convertedAmount
           : convertedAmount // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as double?,
       currency: freezed == currency
           ? _value.currency
           : currency // ignore: cast_nullable_to_non_nullable
@@ -146,9 +146,9 @@ abstract class _$$ExpenseModelImplCopyWith<$Res>
       {int id,
       String category,
       String source,
-      String amount,
+      double amount,
       String? receipt,
-      String? convertedAmount,
+      double? convertedAmount,
       String? currency,
       DateTime date,
       String icon,
@@ -195,7 +195,7 @@ class __$$ExpenseModelImplCopyWithImpl<$Res>
       amount: null == amount
           ? _value.amount
           : amount // ignore: cast_nullable_to_non_nullable
-              as String,
+              as double,
       receipt: freezed == receipt
           ? _value.receipt
           : receipt // ignore: cast_nullable_to_non_nullable
@@ -203,7 +203,7 @@ class __$$ExpenseModelImplCopyWithImpl<$Res>
       convertedAmount: freezed == convertedAmount
           ? _value.convertedAmount
           : convertedAmount // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as double?,
       currency: freezed == currency
           ? _value.currency
           : currency // ignore: cast_nullable_to_non_nullable
@@ -254,11 +254,11 @@ class _$ExpenseModelImpl implements _ExpenseModel {
   @override
   final String source;
   @override
-  final String amount;
+  final double amount;
   @override
   final String? receipt;
   @override
-  final String? convertedAmount;
+  final double? convertedAmount;
   @override
   final String? currency;
   @override
@@ -335,9 +335,9 @@ abstract class _ExpenseModel implements ExpenseModel {
           {required final int id,
           required final String category,
           required final String source,
-          required final String amount,
+          required final double amount,
           final String? receipt,
-          final String? convertedAmount,
+          final double? convertedAmount,
           final String? currency,
           required final DateTime date,
           required final String icon,
@@ -355,11 +355,11 @@ abstract class _ExpenseModel implements ExpenseModel {
   @override
   String get source;
   @override
-  String get amount;
+  double get amount;
   @override
   String? get receipt;
   @override
-  String? get convertedAmount;
+  double? get convertedAmount;
   @override
   String? get currency;
   @override

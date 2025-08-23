@@ -223,3 +223,19 @@ String formatNumber(String value) {
     return number.toStringAsFixed(2);
   }
 }
+
+double calculateConvertedAmount(String amount, double rate) {
+  if (!isExpenseValid(amount)) {
+    return 0;
+  } else {
+    return double.parse(amount) * rate;
+  }
+}
+
+bool isExpenseValid(String amount) {
+  final value = double.tryParse(amount);
+
+  if (value == null || value <= 0) return false;
+
+  return true;
+}

@@ -34,9 +34,17 @@ class ExpenseBloc extends Bloc<ExpenseEvent, ExpenseState> {
     });
 
     on<ChangeAmount>((event, emit) {
-      emit(state.copyWith(
-        addExpenseModel: state.addExpenseModel?.copyWith(amount: event.amount),
-      ));
+      if (!isExpenseValid(event.amount.toString())) {
+        emit(state.copyWith(errorMessage: "Invalid expense"));
+        ToastHelper.showToast(
+            message: "Invalid expense", type: ToastType.error);
+        return;
+      } else {
+        emit(state.copyWith(
+          addExpenseModel:
+              state.addExpenseModel?.copyWith(amount: event.amount),
+        ));
+      }
     });
     on<SubmitReceipt>((event, emit) {
       emit(state.copyWith(
@@ -106,16 +114,16 @@ class ExpenseBloc extends Bloc<ExpenseEvent, ExpenseState> {
     final result = await _repo.submitExpense(
       expense: ExpenseModel(
         id: generateUniqueId(),
-        convertedAmount: ((state.addExpenseModel?.rate ?? 1) *
-                (state.addExpenseModel?.amount ?? 1))
-            .toString(),
+        convertedAmount: calculateConvertedAmount(
+            (state.addExpenseModel?.amount ?? 1).toString(),
+            state.addExpenseModel?.rate ?? 1),
         currency: state.addExpenseModel?.currency ?? "",
         category: Constants.categories
             .firstWhere(
                 (element) => element.id == state.addExpenseModel?.categoryId)
             .name,
         source: "Manually",
-        amount: state.addExpenseModel?.amount.toString() ?? "",
+        amount: state.addExpenseModel?.amount ?? 0,
         date: state.addExpenseModel?.date ?? DateTime.now(),
         icon: Constants.categories
             .firstWhere(
