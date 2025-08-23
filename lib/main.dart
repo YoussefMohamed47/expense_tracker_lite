@@ -8,9 +8,9 @@ import 'package:expense_tracker_lite/utils/helpers/shared_pref_helper.dart';
 import 'package:expense_tracker_lite/utils/routing/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/adapters.dart';
 
-import 'core/caching/app_response_cache_service.dart';
 import 'core/network/dio_factory.dart';
 import 'core/services/service_locator.dart';
 
@@ -27,11 +27,12 @@ Future<void> main({bool enableAlice = false}) async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await SharedPrefHelper.clearSecureStorageOnReinstall();
+  await Hive.initFlutter();
+
   await EasyLocalization.ensureInitialized();
   await AppConfig.init();
   await DioFactory.init();
   await initAppModule();
-  await AppResponseCacheService.initInstance();
 
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark.copyWith(
     statusBarColor: HexColor('#FFFFFF'),

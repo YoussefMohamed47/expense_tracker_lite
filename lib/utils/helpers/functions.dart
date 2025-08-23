@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:file_picker/file_picker.dart';
@@ -168,10 +169,11 @@ Future<void> downloadAttachment({
 }
 
 /// Helper function to pick files
-Future<List<File>> pickFiles() async {
+
+Future<File?> pickFile() async {
   try {
     final result = await FilePicker.platform.pickFiles(
-      allowMultiple: true,
+      allowMultiple: false,
       type: FileType.custom,
       allowedExtensions: [
         'jpg',
@@ -191,16 +193,33 @@ Future<List<File>> pickFiles() async {
     );
 
     if (result != null && result.files.isNotEmpty) {
-      return result.files
-          .where((pf) => pf.path != null) // تأكد أن عنده path
-          .map((pf) => File(pf.path!))
-          .toList();
-    } else {
-      return []; // لو مفيش فايلات اتاخدت
+      return File(result.files.single.path!); // ✅ ملف واحد فقط
     }
+    return null; // ✅ في حالة مفيش اختيار
   } catch (e) {
-    // هنا ممكن تعمل logging أو throw لو عايز
-    print("Error picking files: $e");
-    return [];
+    print("Error picking file: $e");
+    return null;
+  }
+}
+
+int generateUniqueId() {
+  final random = Random();
+  return DateTime.now().microsecondsSinceEpoch + random.nextInt(9999);
+}
+
+Color parseColor(String colorString) {
+  // بتستخرج الجزء اللي بعد 0x وبتحوّله int
+  final valueString = colorString.split('(0x')[1].split(')')[0];
+  return Color(int.parse(valueString, radix: 16));
+}
+
+String formatNumber(String value) {
+  final number = double.tryParse(value) ?? 0.0;
+  if (number >= 1000000) {
+    return "${(number / 1000000).toStringAsFixed(1)}M";
+  } else if (number >= 1000) {
+    return "${(number / 1000).toStringAsFixed(1)}K";
+  } else {
+    return number.toStringAsFixed(2);
   }
 }

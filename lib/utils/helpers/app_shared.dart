@@ -1,4 +1,3 @@
-import 'package:expense_tracker_lite/core/caching/generic_cache.dart';
 import 'package:expense_tracker_lite/utils/resources/app_colors.dart';
 import 'package:expense_tracker_lite/utils/resources/font_manager.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +17,6 @@ class AppShared {
   static String token = '';
   static String remebertoken = '';
   static String deviceId = '';
-  static GenericCache genericCache = GenericCache.instance;
 
   static noSupportAlert() {
     return showDialog(

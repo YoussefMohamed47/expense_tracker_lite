@@ -7,8 +7,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class BalanceTypeWidget extends StatelessWidget {
   final BalanceType balanceType;
+  final double amount;
 
-  const BalanceTypeWidget({super.key, required this.balanceType});
+  const BalanceTypeWidget({
+    super.key,
+    required this.balanceType,
+    required this.amount,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +47,7 @@ class BalanceTypeWidget extends StatelessWidget {
         ),
         verticalSpace(8),
         Text(
-          "\$ 10,840.00",
+          "\$ $amount",
           style: TextStyles.manropeFontBold.copyWith(
             fontSize: 20.sp,
             color: AppColors.white,

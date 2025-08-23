@@ -1,23 +1,26 @@
+import 'package:expense_tracker_lite/core/data/models/color_string_converter.dart';
 import 'package:flutter/material.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class ExpenseModel {
-  final int id;
-  final String category;
-  final String source;
-  final String amount;
-  final DateTime date;
-  final String icon;
-  final Color iconColor;
-  final Color backgroundColor;
+part 'expense_model.freezed.dart';
+part 'expense_model.g.dart';
 
-  const ExpenseModel({
-    required this.id,
-    required this.category,
-    required this.source,
-    required this.amount,
-    required this.date,
-    required this.icon,
-    required this.iconColor,
-    required this.backgroundColor,
-  });
+@freezed
+class ExpenseModel with _$ExpenseModel {
+  const factory ExpenseModel({
+    required int id,
+    required String category,
+    required String source,
+    required String amount,
+    String? receipt,
+    String? convertedAmount,
+    String? currency,
+    required DateTime date,
+    required String icon,
+    @ColorStringConverter() required Color backgroundColor,
+    @ColorStringConverter() required Color iconColor,
+  }) = _ExpenseModel;
+
+  factory ExpenseModel.fromJson(Map<String, dynamic> json) =>
+      _$ExpenseModelFromJson(json);
 }

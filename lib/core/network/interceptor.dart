@@ -3,7 +3,6 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:expense_tracker_lite/core/caching/app_response_cache_service.dart';
 import 'package:expense_tracker_lite/core/services/service_locator.dart';
 import 'package:expense_tracker_lite/utils/helpers/app_shared.dart';
 import 'package:expense_tracker_lite/utils/helpers/shared_pref_helper.dart';
@@ -38,7 +37,6 @@ class DioInterceptor {
       try {
         await Future.wait([
           SharedPrefHelper.clearAllData(),
-          AppResponseCacheService.clearAllAppCacheResponse(),
           SharedPrefHelper.clearAllSecuredData(),
         ]);
 

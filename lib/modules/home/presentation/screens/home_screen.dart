@@ -1,13 +1,14 @@
-import 'package:expense_tracker_lite/modules/expense/presentation/screens/add_expense_screen.dart';
+import 'package:expense_tracker_lite/core/services/service_locator.dart';
 import 'package:expense_tracker_lite/modules/home/presentation/bloc/home_bloc.dart';
+import 'package:expense_tracker_lite/modules/home/presentation/bloc/home_event.dart';
 import 'package:expense_tracker_lite/modules/home/presentation/widgets/home_balance_card.dart';
 import 'package:expense_tracker_lite/modules/home/presentation/widgets/home_logo_header.dart';
 import 'package:expense_tracker_lite/modules/home/presentation/widgets/home_recent_expenses.dart';
 import 'package:expense_tracker_lite/modules/home/presentation/widgets/home_top_section.dart';
-import 'package:expense_tracker_lite/utils/helpers/enums.dart';
 import 'package:expense_tracker_lite/utils/helpers/extensions.dart';
 import 'package:expense_tracker_lite/utils/helpers/spacing.dart';
 import 'package:expense_tracker_lite/utils/resources/app_colors.dart';
+import 'package:expense_tracker_lite/utils/routing/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,9 +21,13 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  late HomeBloc _homeBloc;
+
   @override
   void initState() {
     super.initState();
+    _homeBloc = instance<HomeBloc>();
+    _homeBloc.add(GetExpenses());
 
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle.light.copyWith(
@@ -50,9 +55,8 @@ class _HomeScreenState extends State<HomeScreen> {
       extendBodyBehindAppBar: true,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          context.pushWithTransition(
-            AddExpenseScreen(),
-            transitionType: TransitionType.slideFromRight,
+          context.pushNamed(
+            Routes.addExpense,
           );
         },
         shape: const CircleBorder(),
@@ -66,18 +70,23 @@ class _HomeScreenState extends State<HomeScreen> {
             top: true,
             child: Padding(
               padding: EdgeInsets.all(16.0),
-              child: Column(
-                children: [
-                  verticalSpace(8),
-                  HomeTopSection(),
-                  verticalSpace(24),
-                  BlocProvider(
-                    create: (context) => HomeBloc(),
-                    child: HomeBalanceCard(),
-                  ),
-                  Spacer(),
-                  HomeRecentExpensesSection(),
-                ],
+              child: BlocProvider.value(
+                value: _homeBloc,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    verticalSpace(8),
+                    HomeTopSection(),
+                    verticalSpace(24),
+                    AnimatedSize(
+                      duration: Duration(milliseconds: 300),
+                      curve: Curves.easeInOut,
+                      child: HomeBalanceCard(),
+                    ),
+                    verticalSpace(40),
+                    Expanded(child: HomeRecentExpensesSection()),
+                  ],
+                ),
               ),
             ),
           ),

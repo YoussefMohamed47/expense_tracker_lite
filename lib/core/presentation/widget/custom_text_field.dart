@@ -58,7 +58,7 @@ class CustomTextField extends StatefulWidget {
     this.maxLength,
     this.contentPadding,
     this.counterColor,
-    this.fillColor = Colors.white,
+    this.fillColor = AppColors.gray75,
     this.isEnabled = true,
     this.borderRadius = 20,
     this.isReadOnly = false,
@@ -103,7 +103,11 @@ class _CustomTextFieldState extends State<CustomTextField> {
             : false,
         readOnly: widget.isReadOnly,
         focusNode: widget.focusNode,
-        style: widget.textFormFieldTextStyle,
+        style: widget.textFormFieldTextStyle ??
+            TextStyles.manropeFontSemiBold.copyWith(
+              fontSize: 14.sp,
+              color: AppColors.gray400,
+            ),
         decoration: InputDecoration(
           enabled: widget.isEnabled,
           counterStyle: TextStyle(
@@ -168,9 +172,10 @@ class _CustomTextFieldState extends State<CustomTextField> {
                         ))
               : widget.suffixWidget,
           focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(widget.borderRadius),
+            borderRadius: BorderRadius.circular(
+                widget.borderRadius == 0 ? 15.r : widget.borderRadius),
             borderSide: BorderSide(
-              color: widget.borderColor ?? Colors.transparent,
+              color: widget.borderColor ?? AppColors.gray300,
               width: 1,
             ), //<-- SEE HERE
           ),
@@ -199,18 +204,19 @@ class _CustomTextFieldState extends State<CustomTextField> {
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(widget.borderRadius),
             borderSide: BorderSide(
-              color: widget.unFocusedBorderColor ?? Colors.transparent,
+              color: widget.unFocusedBorderColor ?? AppColors.gray300,
             ), //<-- SEE HERE
           ),
           hintText: widget.hint ?? "",
           contentPadding: widget.contentPadding ??
-              const EdgeInsets.symmetric(
-                horizontal: 16,
+              EdgeInsets.symmetric(
+                horizontal: 16.w,
+                vertical: 18.h,
               ),
           hintStyle: widget.hintStyle ??
-              TextStyles.manropeFontRegular.copyWith(
+              TextStyles.manropeFontSemiBold.copyWith(
                 fontSize: 14.sp,
-                color: AppColors.gray500,
+                color: AppColors.gray400,
               ),
         ),
       ),

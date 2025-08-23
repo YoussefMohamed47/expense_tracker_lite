@@ -47,7 +47,7 @@ class ExpenseTrackerLiteApp extends StatelessWidget {
                       EasyLocalization.of(context)!.supportedLocales,
                   locale: EasyLocalization.of(context)!.locale,
                   debugShowCheckedModeBanner: false,
-                  title: 'X360 Planner',
+                  title: 'Expense Tracker Lite',
                   home: child,
                   builder: (context, widget) {
                     return MediaQuery(

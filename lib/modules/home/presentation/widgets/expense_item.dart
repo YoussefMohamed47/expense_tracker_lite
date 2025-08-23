@@ -1,4 +1,5 @@
 import 'package:expense_tracker_lite/core/data/models/expense_model.dart';
+import 'package:expense_tracker_lite/utils/helpers/functions.dart';
 import 'package:expense_tracker_lite/utils/helpers/spacing.dart';
 import 'package:expense_tracker_lite/utils/resources/app_colors.dart';
 import 'package:expense_tracker_lite/utils/resources/styles_manager.dart';
@@ -66,6 +67,14 @@ class RecentExpenseItem extends StatelessWidget {
             children: [
               Text(
                 "\$${expense.amount}",
+                style: TextStyles.manropeFontBold.copyWith(
+                  fontSize: 16.sp,
+                  color: AppColors.black,
+                ),
+              ),
+              Text(
+                " ${expense.currency} ${formatNumber(expense.convertedAmount ?? "0")}",
+                overflow: TextOverflow.ellipsis,
                 style: TextStyles.manropeFontBold.copyWith(
                   fontSize: 16.sp,
                   color: AppColors.black,

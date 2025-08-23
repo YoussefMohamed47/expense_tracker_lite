@@ -12,6 +12,8 @@ class AppColors {
   static const Color aquaSapphire = Color(0xFF6286F7);
   static const Color lightBlue = Color(0xFFC4DCDC);
   static const Color blue100 = Color(0xFFE3E7F6);
+  static const Color pinkish = Color(0xFFE28F93);
+  static const Color lightAmber = Color(0xFFF4C566);
 
   // -----------------------
   // Status Colors
@@ -36,6 +38,7 @@ class AppColors {
   // Grayscale (Tailwind Scale)
   // -----------------------
   static const Color gray50 = Color(0xFFF9FAFB); // Lightest
+  static const Color gray75 = Color(0xFFf4f6fa); // Lightest
   static const Color gray100 = Color(0xFFE4E4E4);
   static const Color gray150 = Color(0xFFF3F4F6);
   static const Color gray200 = Color(0xFFD1D5DB);

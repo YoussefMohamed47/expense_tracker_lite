@@ -84,7 +84,7 @@ class HomeBalanceCard extends StatelessWidget {
                     ),
                     verticalSpace(8),
                     Text(
-                      "\$ 1,250.00",
+                      "\$ ${state.totalBalance}",
                       style: TextStyles.manropeFontBold.copyWith(
                         fontSize: 36.sp,
                         color: AppColors.white,
@@ -97,9 +97,11 @@ class HomeBalanceCard extends StatelessWidget {
                         children: [
                           BalanceTypeWidget(
                             balanceType: BalanceType.income,
+                            amount: state.totalIncome,
                           ),
                           BalanceTypeWidget(
                             balanceType: BalanceType.expense,
+                            amount: state.totalExpense,
                           )
                         ],
                       )
