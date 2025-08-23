@@ -98,12 +98,9 @@ The app implements a hybrid pagination approach:
 ## 🚀 Features
 
 - [ ] Expense tracking with categories
-- [ ] Budget management
-- [ ] Reports and analytics
 - [ ] Multi-currency support
-- [ ] Data export (PDF/CSV)
-- [ ] Cloud sync
-- [ ] Dark mode
+- [ ] Data export (PDF)
+
 
 ## 🧪 Testing
 
@@ -136,7 +133,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 📝 Todo
 
 - [ ] Add more test coverage
-- [ ] Implement CI/CD pipeline
 - [ ] Add more detailed documentation
 - [ ] Implement user authentication
 - [ ] Add more customization options
